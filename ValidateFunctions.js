@@ -1,36 +1,30 @@
-const { ObjectId } = require('mongodb')
-const connectToDb = require('./DatabaseServer')
+const connectToDb = require('./DatabaseService')
 
-async function validCategory(paramCategory) {
+async function validCategory(paramCategoryArray) {
     const collection = await connectToDb()
     const allCategories = await collection.distinct('category', collection.find({}).toArray())
-    if(!allCategories.includes(paramCategory)) {
-        return false
-    } else {
-        return true
-    }
+    paramCategoryArray?.forEach((param) => {
+        if(!allCategories.includes(param)) {
+            return false
+        } else {
+            return true
+        }
+    })
 }
 
-async function validCharacter(paramCharacter) {
+async function validCharacter(paramCharacterArray) {
     const collection = await connectToDb()
     const allCharacters = await collection.distinct('character', collection.find({}).toArray())
-    if(!allCharacters.includes(paramCharacter)) {
-        return false
-    } else {
-        return true
-    }
-}
-
-function validateId(paramId) {
-    try {
-        return true
-    } catch {
-        return false
-    }
+    paramCharacterArray?.forEach((param) => {
+        if(!allCharacters.includes(param)) {
+            return false
+        } else {
+            return true
+        }
+    })
 }
 
 module.exports = {
     validCategory,
-    validCharacter,
-    validateId
+    validCharacter
 }
