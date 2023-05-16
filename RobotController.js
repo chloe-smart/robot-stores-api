@@ -36,13 +36,13 @@ async function getAllProducts(request, response) {
             message: 'Unknown category',
             'data': []
         }
-        response.json(responseBody)
+        response.status(400).json(responseBody)
     } else if (validCharacter(paramCharacterArray) == false) {
         const responseBody = {
             message: 'Unknown character',
             'data': []
         }
-        response.json(responseBody)
+        response.status(400).json(responseBody)
     } else {
         const allProducts = await collection.find({}).toArray()
         const responseBody = {
