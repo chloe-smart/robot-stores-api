@@ -65,9 +65,6 @@ Use the [json file](products.json) in this repo to set up the database.
   
     * **Code:** 400 BAD REQUEST <br />
       **Content:** `{"message": "Unknown character", "data": []}`
-  
-    * **Code:** 500 SERVER ERROR <br />
-      **Content:** `{"message": "Unexpected error", "data": []}`
 
 ### Return specific product
 
@@ -120,6 +117,3 @@ Use the [json file](products.json) in this repo to set up the database.
 
     * **Code:** 400 BAD REQUEST <br />
       **Content:** `{"message": "Unknown product ID", "data": []}`
-
-    * **Code:** 500 SERVER ERROR <br />
-      **Content:** `{"message": "Unexpected error", "data": []}`
