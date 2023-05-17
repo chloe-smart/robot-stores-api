@@ -60,11 +60,9 @@ Use the [json file](products.json) in this repo to set up the database.
 
 * **Error Response:**
 
-    * **Code:** 400 BAD REQUEST <br />
-      **Content:** `{"message": "Unknown category", "data": []}`
+    * **Content:** `{"message": "Unknown category", "data": []}`
   
-    * **Code:** 400 BAD REQUEST <br />
-      **Content:** `{"message": "Unknown character", "data": []}`
+    * **Content:** `{"message": "Unknown character", "data": []}`
 
 ### Return specific product
 
