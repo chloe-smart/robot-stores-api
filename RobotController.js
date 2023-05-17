@@ -3,6 +3,7 @@ const connectToDb = require('./DatabaseService')
 const { validCategory, validCharacter } = require('./ValidateFunctions')
 
 async function getAllProducts(request, response) {
+
     const collection = await connectToDb()
     const paramCategory = request.query.category
     const paramCharacter = request.query.character
@@ -17,32 +18,31 @@ async function getAllProducts(request, response) {
             data: productByCategoryAndCharacter
         }
         response.json(responseBody)
+
     } else if (paramCategory && validCategory(paramCategoryArray)) {
         const productByCategory = await collection.find({ category: { $in: paramCategoryArray } }).toArray()
-        const responseBody = {
-            message: 'Successfully found products.',
-            data: productByCategory
-        }
-        response.json(responseBody)
+        const responseBody = productByCategory.length < 1 ? {
+            message: 'Unknown Category.',
+            data: []
+        } : 
+            {
+                message: 'Successfully found products.',
+                data: productByCategory
+            }
+        response.json(responseBody) 
+
     } else if (paramCharacter && validCharacter(paramCharacterArray)) {
         const productByCharacter = await collection.find({ character: { $in: paramCharacterArray } }).toArray()
-        const responseBody = {
-            message: 'Successfully found products.',
-            data: productByCharacter
-        }
+        const responseBody = productByCharacter.length < 1 ? {
+            message: 'Unknown character.',
+            data: []
+        } : 
+            {
+                message: 'Successfully found products.',
+                data: productByCharacter
+            }
         response.json(responseBody)
-    } else if (validCategory(paramCategoryArray) == false) {
-        const responseBody = {
-            message: 'Unknown category',
-            'data': []
-        }
-        response.status(400).json(responseBody)
-    } else if (validCharacter(paramCharacterArray) == false) {
-        const responseBody = {
-            message: 'Unknown character',
-            'data': []
-        }
-        response.status(400).json(responseBody)
+
     } else {
         const allProducts = await collection.find({}).toArray()
         const responseBody = {
@@ -50,8 +50,8 @@ async function getAllProducts(request, response) {
             data: allProducts
         }
         response.json(responseBody)
+        
     }
-
 }
 
 async function getProductById(request, response) {
